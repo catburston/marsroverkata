@@ -4,28 +4,25 @@ function Rover(x, y, orientation, map) {
   this.map = map;
 }
 
-Rover.prototype.move = function (commands) {
-  for (var i = 0; i < commands.length; i++) {
-    var c = commands[i];
-    switch (c) {
-      case 'f':
-        this.moveForward();
-      break;
-      case 'b':
-        this.moveBackward();
-      break;
-      case 'r':
-        this.turnRight();
-      break;
-      case 'l':
-        this.turnLeft();
-      break;
-      default:
+  move: function (commands) {
+    var actionName;
+    for (var i = 0; i < commands.length; i++) {
+      var c = commands[i];
+      if (!this.actionNameByCommand.hasOwnProperty(c)) {
         console.log('Unrecognized command: ' + c);
-      break;
+      }
+      else {
+        actionName = this.actionNameByCommand[c];
+        this[actionName]();
+      }
     }
-  }
-};
+  },
+  actionNameByCommand: {
+    f: 'moveForward',
+    b: 'moveBackward',
+    r: 'turnRight',
+    l: 'turnLeft'
+  },
 
 Rover.prototype.moveForward = function () {
   this.advance('forward');
