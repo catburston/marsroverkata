@@ -50,6 +50,7 @@ Rover.prototype.advance = function (direction) {
   }
 };
 
+
 Rover.prototype.increments = {
   n: [0, 1],
   e: [1, 0],
